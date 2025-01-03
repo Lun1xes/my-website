@@ -257,6 +257,7 @@
         <!-- Регулятор громкости -->
         <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.01" />
     </div>
+    <!-- Добавляем атрибут autoplay -->
     <audio id="audioPlayer" src="song1.mp3" autoplay></audio>
 </div>
 
@@ -360,11 +361,6 @@
     // Инициализация
     loadSong(currentSongIndex);
     audioPlayer.addEventListener("timeupdate", updateProgressBar);
-
-    // Автозапуск песни при загрузке страницы
-    window.onload = function() {
-        audioPlayer.play();
-    };
 </script>
 </body>
 </html>

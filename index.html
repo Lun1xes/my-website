@@ -29,6 +29,13 @@
             height: 100vh;
             overflow: hidden;
             position: relative;
+            animation: backgroundMove 10s ease infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
@@ -36,13 +43,20 @@
             padding: 60px;
             background-color: #222;
             border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
             max-width: 1000px;
             width: 90%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 40px rgba(0, 0, 0, 0.8);
         }
 
         .avatar-container {
             margin-bottom: 30px;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .avatar-container img {
@@ -52,11 +66,21 @@
             border: 4px solid #ff0000;
             box-shadow: 0 0 30px #ff0000;
             animation: glow-avatar 1.5s infinite alternate;
+            transition: transform 0.3s ease;
+        }
+
+        .avatar-container img:hover {
+            transform: scale(1.1);
         }
 
         @keyframes glow-avatar {
             from { box-shadow: 0 0 30px #ff0000; }
-            to { box-shadow: 0 0 40px #ff0000; }
+            to { box-shadow: 0 0 50px #ff0000; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .github-username, .view-counter {
@@ -76,6 +100,7 @@
             list-style: none;
             padding: 0;
             margin: 0;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
         li {
@@ -89,7 +114,7 @@
             padding: 20px 100px;
             border-radius: 8px;
             display: inline-block;
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s ease;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
             font-size: 1.4rem;
         }
@@ -97,7 +122,7 @@
         a:hover {
             background-color: #ff3333;
             transform: translateY(-5px);
-            box-shadow: 0 0 25px #ff3333;
+            box-shadow: 0 0 30px #ff3333;
         }
 
         /* Стили музыкального плеера */
@@ -108,7 +133,13 @@
             max-width: 500px;
             margin: auto;
             padding: 20px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .music-player:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
         }
 
         .song-info {
@@ -127,7 +158,7 @@
             font-size: 1.5rem;
             cursor: pointer;
             padding: 10px;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease, color 0.3s ease;
         }
 
         .control-btn:hover {
@@ -140,6 +171,11 @@
             height: 5px;
             border-radius: 5px;
             margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .progress-bar:hover {
+            background: #ff3333;
         }
 
         .progress {

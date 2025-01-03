@@ -5,15 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Links</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MPDMCLYH32"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-MPDMCLYH32');
-    </script>
 
     <style>
         /* Основные стили */
@@ -96,7 +87,7 @@
             to { opacity: 1; }
         }
 
-        .github-username, .view-counter {
+        .github-username {
             font-size: 1.8rem;
             color: #ff0000;
             margin-top: 15px;
@@ -215,10 +206,6 @@
         <div class="github-username" id="github-username">
             <span id="github-username-text"></span>
         </div>
-        <div class="view-counter" title="Total Profile Views">
-            <i class="fas fa-eye" aria-hidden="true"></i>
-            <span id="viewCount" aria-live="polite">0</span>
-        </div>
     </div>
 
     <ul>
@@ -254,7 +241,6 @@
         .then(data => {
             document.getElementById("github-avatar").src = data.avatar_url;
             document.getElementById("github-username-text").textContent = data.login;
-            document.getElementById("viewCount").textContent = data.public_repos;
         })
         .catch(error => console.error('Ошибка при загрузке данных пользователя:', error));
 

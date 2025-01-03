@@ -223,8 +223,6 @@
             <span id="viewCount" aria-live="polite">0</span>
         </div>
     </div>
-
-    <p>Click on the links below to explore:</p>
     <ul>
         <li><a href="https://discord.gg/5HCkRJuHcP" target="_blank" rel="noopener noreferrer">Best Discord Server <3</a></li>
         <li><a href="https://funpay.com/users/8726003/" target="_blank" rel="noopener noreferrer">My FunPay <3</a></li>
@@ -233,8 +231,8 @@
     <!-- Музыкальный плеер -->
     <div class="music-player">
         <div class="song-info">
-            <div class="song-title" id="songTitle"></div>
-            <div class="song-artist" id="songArtist"></div>
+            <div class="song-title" id="songTitle">BUNNY SUIT</div>
+            <div class="song-artist" id="songArtist">SEMATARY FT. GHOST MOUNTAIN</div>
         </div>
         <div class="player-controls">
             <button class="control-btn" id="prevBtn" aria-label="Previous song">
@@ -259,10 +257,29 @@
         <!-- Регулятор громкости -->
         <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.01" />
     </div>
-    <audio id="audioPlayer" src=""></audio>
+    <audio id="audioPlayer" src="song1.mp3"></audio>
 </div>
 
 <script>
+    // Динамическая загрузка данных с GitHub
+    fetch('https://api.github.com/users/Lun1xes')  // Замените на ваш логин GitHub
+        .then(response => response.json())
+        .then(data => {
+            const avatarUrl = data.avatar_url;
+            const username = data.login;
+            const viewCount = data.public_repos; // Используем количество репозиториев как просмотры
+
+            // Обновление аватара
+            document.getElementById("github-avatar").src = avatarUrl;
+            // Обновление имени пользователя
+            document.getElementById("github-username-text").textContent = username;
+            // Обновление счетчика просмотров
+            document.getElementById("viewCount").textContent = viewCount;
+        })
+        .catch(error => {
+            console.error('Ошибка при загрузке данных пользователя:', error);
+        });
+
     const songs = [
         { src: "spotifydown.com - CUT OFF.mp3", title: "CUT OFF", artist: "ARXMANE, Nateki" },
         { src: "spotifydown.com - Revolta.mp3", title: "Revolta", artist: "ARXMANE" },

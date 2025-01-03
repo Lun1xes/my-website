@@ -8,7 +8,7 @@
         /* Основные стили */
         body {
             font-family: Arial, sans-serif;
-            background-color: #1e1e2f;
+            background: linear-gradient(135deg, #1e1e2f 0%, #282a36 100%);
             color: #ffffff;
             margin: 0;
             padding: 0;
@@ -17,6 +17,7 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            position: relative;
         }
 
         .container {
@@ -26,12 +27,12 @@
             background-color: #282a36;
             border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            position: relative;
+            position: absolute;
+            z-index: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin: auto;
         }
 
         h1 {
@@ -45,17 +46,17 @@
             margin-bottom: 2rem;
             font-size: 1.2rem;
             color: #bd93f9;
+            opacity: 0.8;
         }
 
         ul {
             list-style: none;
             padding: 0;
-            padding-top: -10;
             margin: 0;
         }
 
         li {
-            margin: 10px 0;
+            margin: 15px 0;
         }
 
         a {
@@ -65,13 +66,14 @@
             padding: 15px 80px;
             border-radius: 5px;
             display: inline-block;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.2s;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         a:hover {
             background-color: #50fa7b;
             transform: translateY(-3px);
+            box-shadow: 0 0 20px #50fa7b;
         }
 
         @keyframes glow {
@@ -79,17 +81,70 @@
             to { text-shadow: 0 0 20px #ff79c6, 0 0 30px #ff79c6, 0 0 40px #ff79c6; }
         }
 
-                }
+        /* Стили снежинок */
+        .snowflake {
+            position: absolute;
+            top: -33px; /* Начальная позиция снежинки */
+            font-size: 20px;
+            color: white;
+            animation: fall linear infinite, drift linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10px;
+            }
+            100% {
+                top: 220vh; /* Падает до самого низа */
+            }
+        }
+
+        @keyframes drift {
+            0% {
+                left: ;
+            }
+            0% {
+                left: calc(100vw * var(--x)); /* Случайное отклонение по горизонтали */
+            }
+        }
 
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Hi <3</h1>
-        <p>Click on the links below to explore:</p>
-        <ul>
-            <li><a href="https://discord.gg/5HCkRJuHcP" target="_blank" rel="noopener noreferrer">Best Discord Server <3</a></li>
-            <li><a href="https://funpay.com/users/8726003/" target="_blank" rel="noopener noreferrer">My FunPay <3</a></li>
-        </ul>
+<div class="container">
+    <h1>Hi <3</h1>
+    <p>Click on the links below to explore:</p>
+    <ul>
+        <li><a href="https://discord.gg/5HCkRJuHcP" target="_blank" rel="noopener noreferrer">Best Discord Server <3</a></li>
+        <li><a href="https://funpay.com/users/8726003/" target="_blank" rel="noopener noreferrer">My FunPay <3</a></li>
+    </ul>
+</div>
+
+<script>
+    const numSnowflakes = 400; // Количество снежинок
+    const body = document.body;
+
+    for (let i = 0; i < numSnowflakes; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.textContent = '❄';
+
+        // Случайные параметры для каждой снежинки
+        const size = Math.random() * 20 + 10; // Размер снежинки от 10 до 30
+        const duration = Math.random() * 10 + 10; // Продолжительность падения от 7 до 14 секунд
+        const delay = Math.random() * 5; // Задержка перед началом падения (чтобы снежинки не падали одновременно)
+        const xPosition = Math.random() * 5; // Случайное отклонение по горизонтали
+
+        // Применяем стили
+        snowflake.style.fontSize = `${size}px`;
+        snowflake.style.animationDuration = `${duration}s`;
+        snowflake.style.animationDelay = `${delay}s`; // Задержка перед началом анимации
+        snowflake.style.setProperty('--x', xPosition);
+
+        // Добавляем снежинку на страницу
+        body.appendChild(snowflake);
+    }
+</script>
 </body>
 </html>

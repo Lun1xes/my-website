@@ -4,157 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Links</title>
-    <!-- Подключаем Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <style>
-        /* Основные стили */
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #1e1e2f 0%, #282a36 100%);
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .container {
-            text-align: center;
-            max-width: 1200px;
-            padding: 120px;
-            background-color: #282a36;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            position: absolute;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .avatar-container {
-            margin-bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .avatar-container img {
-            border-radius: 50%;
-            width: 150px; /* Увеличиваем размер аватара */
-            height: 150px; /* Увеличиваем размер аватара */
-            border: 4px solid #ff79c6;
-            box-shadow: 0 0 30px #ff79c6; /* Глоу для аватара */
-            animation: glow-avatar 1.5s infinite alternate;
-        }
-
-        @keyframes glow-avatar {
-            from {
-                box-shadow: 0 0 30px #ff79c6;
-            }
-            to {
-                box-shadow: 0 0 40px #ff79c6;
-            }
-        }
-
-        .github-username {
-            font-size: 2rem; /* Увеличиваем размер текста */
-            color: #ff79c6;
-            margin-top: 15px;
-            text-shadow: 0 0 15px #ff79c6, 0 0 25px #ff79c6; /* Глоу для никнейма */
-            animation: glow-text 1.5s infinite alternate;
-        }
-
-        @keyframes glow-text {
-            from {
-                text-shadow: 0 0 15px #ff79c6, 0 0 25px #ff79c6;
-            }
-            to {
-                text-shadow: 0 0 25px #ff79c6, 0 0 35px #ff79c6;
-            }
-        }
-
-        .view-counter {
-            margin-top: 10px;
-            font-size: 1.5rem; /* Увеличиваем шрифт счетчика */
-            color: #ff79c6;
-            display: flex;
-            align-items: center;
-            text-shadow: 0 0 15px #ff79c6, 0 0 25px #ff79c6; /* Глоу для счетчика */
-            animation: glow-text 1.5s infinite alternate;
-        }
-
-        .view-counter i {
-            margin-right: 5px;
-        }
-
-        p {
-            margin-bottom: 2.5rem;
-            font-size: 1.5rem; /* Увеличиваем размер текста */
-            color: #bd93f9;
-            opacity: 0.9;
-            text-shadow: 0 0 15px #bd93f9, 0 0 25px #bd93f9; /* Глоу для текста */
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            margin: 20px 0;
-        }
-
-        a {
-            text-decoration: none;
-            color: #ffffff;
-            background-color: #6272a4;
-            padding: 20px 100px; /* Увеличиваем отступы для кнопок */
-            border-radius: 8px;
-            display: inline-block;
-            transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-            font-size: 1.4rem; /* Увеличиваем шрифт ссылок */
-        }
-
-        a:hover {
-            background-color: #50fa7b;
-            transform: translateY(-5px);
-            box-shadow: 0 0 25px #50fa7b;
-        }
-
-        /* Стили снежинок */
-        .snowflake {
-            position: absolute;
-            top: -33px; /* Начальная позиция снежинки */
-            font-size: 20px; /* Оставляем размер снежинок как был */
-            color: white;
-            animation: fall linear infinite, drift linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes fall {
-            0% {
-                top: -10px;
-            }
-            100% {
-                top: 220vh; /* Падает до самого низа */
-            }
-        }
-
-        @keyframes drift {
-            0% {
-                left: calc(100vw * var(--x)); /* Случайное отклонение по горизонтали */
-            }
-        }
-
+        /* Ваши стили... */
     </style>
 </head>
 <body>
@@ -165,7 +18,6 @@
         <div class="github-username" id="github-username">
             <span id="github-username-text"></span>
         </div>
-        <!-- Счетчик просмотров теперь под ником -->
         <div class="view-counter" title="Total Profile Views">
             <i class="fas fa-eye" aria-hidden="true"></i>
             <span id="viewCount" aria-live="polite">0</span>
@@ -177,56 +29,42 @@
         <li><a href="https://discord.gg/5HCkRJuHcP" target="_blank" rel="noopener noreferrer">Best Discord Server <3</a></li>
         <li><a href="https://funpay.com/users/8726003/" target="_blank" rel="noopener noreferrer">My FunPay <3</a></li>
     </ul>
+
+    <!-- Кнопка очистки данных -->
+    <button id="clearButton">Очистить данные</button>
 </div>
 
 <script>
-    // Функция для установки куки
-    function setCookie(name, value, days) {
-        const expires = new Date();
-        expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
-    }
-
-    // Функция для получения куки
-    function getCookie(name) {
-        const nameEQ = name + "=";
-        const ca = document.cookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-    }
-
-    // Обновление счётчика просмотров
     function updateViewCount() {
-        let viewCount = getCookie('viewCount');
-
-        if (!viewCount) {
-            // Если куки нет, значит, это первый просмотр
-            viewCount = 1;
-            setCookie('viewCount', viewCount, 365); // Сохраняем на 365 дней
-        } else {
-            // Если куки есть, увеличиваем счётчик
-            viewCount = parseInt(viewCount) + 1;
-            setCookie('viewCount', viewCount, 365); // Обновляем значение куки
+        let uniqueId = localStorage.getItem('uniqueVisitorId');
+        
+        if (!uniqueId) {
+            uniqueId = Date.now() + Math.random().toString(36).substr(2);
+            localStorage.setItem('uniqueVisitorId', uniqueId);
+            let currentCount = parseInt(localStorage.getItem('viewCount') || 0);
+            localStorage.setItem('viewCount', currentCount + 1);
         }
-
-        document.getElementById('viewCount').innerText = viewCount;
+        
+        document.getElementById('viewCount').innerText = localStorage.getItem('viewCount');
     }
 
-    // Получаем данные с GitHub с помощью API
+    // Очищаем данные по клику на кнопку
+    document.getElementById('clearButton').addEventListener('click', function() {
+        localStorage.removeItem('uniqueVisitorId');
+        localStorage.removeItem('viewCount');
+        document.getElementById('viewCount').innerText = '0';
+        alert('Данные очищены!');
+    });
+
+    // Получаем данные с GitHub
     fetch('https://api.github.com/users/Lun1xes')  // Замените на ваш GitHub никнейм
         .then(response => response.json())
         .then(data => {
-            // Устанавливаем аватар и имя пользователя
             document.getElementById('github-avatar').src = data.avatar_url;
             document.getElementById('github-username-text').innerText = data.login;
         })
         .catch(error => console.error('Ошибка при загрузке данных с GitHub:', error));
 
-    // Обновляем счётчик просмотров
     updateViewCount();
 </script>
 </body>

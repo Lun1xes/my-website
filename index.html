@@ -38,6 +38,19 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* Добавление псевдоэлемента для тени на фоне */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);  /* Тень на фоне */
+            z-index: -1;
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.7);  /* Добавление тени внутрь */
+        }
+
         .container {
             text-align: center;
             padding: 60px;

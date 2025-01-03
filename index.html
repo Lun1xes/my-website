@@ -257,8 +257,7 @@
         <!-- Регулятор громкости -->
         <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.01" />
     </div>
-    <!-- Добавляем атрибут autoplay -->
-    <audio id="audioPlayer" src="song1.mp3" autoplay></audio>
+    <audio id="audioPlayer" src="song1.mp3"></audio>
 </div>
 
 <script>
@@ -323,21 +322,21 @@
 
         const minutes = Math.floor(currentTime / 60);
         const seconds = Math.floor(currentTime % 60);
-        currentTimeElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+        currentTimeElement.textContent = ${minutes}:${seconds < 10 ? '0' + seconds : seconds};
 
         const durationMinutes = Math.floor(duration / 60);
         const durationSeconds = Math.floor(duration % 60);
-        durationElement.textContent = `${durationMinutes}:${durationSeconds < 10 ? '0' + durationSeconds : durationSeconds}`;
+        durationElement.textContent = ${durationMinutes}:${durationSeconds < 10 ? '0' + durationSeconds : durationSeconds};
     }
 
     // Управление воспроизведением
     playButton.addEventListener("click", () => {
         if (audioPlayer.paused) {
             audioPlayer.play();
-            playButton.innerHTML = `<i class="fas fa-pause"></i>`;
+            playButton.innerHTML = <i class="fas fa-pause"></i>;
         } else {
             audioPlayer.pause();
-            playButton.innerHTML = `<i class="fas fa-play"></i>`;
+            playButton.innerHTML = <i class="fas fa-play"></i>;
         }
     });
 

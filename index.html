@@ -295,7 +295,7 @@
         <div class="volume-control">
             <label for="volumeSlider">Volume: </label>
             <div class="volume-slider">
-                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+                <input type="range" id="volumeSlider" min="0" max="5" step="0.01" value="1">
             </div>
         </div>
     </div>
@@ -305,7 +305,7 @@
 
 <script>
     const songs = [
-        { src: "spotifydown.com - CUT OFF.mp3", title: " CUT OFF", artist: "ARXMANE, Nateki" },
+        { src: "spotifydown.com - CUT OFF.mp3", title: "CUT OFF", artist: "ARXMANE, Nateki" },
         { src: "spotifydown.com - Revolta.mp3", title: "Revolta", artist: "ARXMANE" },
         { src: "spotifydown.com - ragephunk!.mp3", title: "ragephunk!", artist: "ARXMANE, DJ LA BEAT" }
     ];
@@ -318,6 +318,12 @@
     const currentTimeElement = document.querySelector(".current-time");
     const durationElement = document.querySelector(".duration");
     const playButton = document.getElementById("playBtn");
+
+    // Устанавливаем начальную громкость на 1% (0.01)
+    audioPlayer.volume = 0.01;
+
+    // Слайдер громкости начнется с 1% (0.01)
+    document.getElementById("volumeSlider").value = 0.01;
 
     // Функция для загрузки песни
     function loadSong(songIndex) {
@@ -369,15 +375,9 @@
         loadSong(currentSongIndex);
     });
 
-    // Регулировка громкости
-    document.getElementById("volumeSlider").addEventListener("input", (e) => {
-        audioPlayer.volume = e.target.value;
-    });
-
     // Инициализация
     loadSong(currentSongIndex);
     audioPlayer.addEventListener("timeupdate", updateProgressBar);
 </script>
-
 </body>
 </html>

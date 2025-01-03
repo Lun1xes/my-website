@@ -208,6 +208,20 @@
         .time-info span {
             margin: 0 5px;
         }
+
+        /* Стили регулятора громкости */
+        .volume-control {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .volume-control input {
+            margin-left: 10px;
+            width: 200px;
+        }
     </style>
 </head>
 <body>
@@ -258,6 +272,12 @@
         </div>
     </div>
     <audio id="audioPlayer" src="song1.mp3"></audio>
+
+    <!-- Регулятор громкости -->
+    <div class="volume-control">
+        <label for="volumeControl">Volume:</label>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0">
+    </div>
 </div>
 
 <script>
@@ -275,6 +295,12 @@
     const currentTimeElement = document.querySelector(".current-time");
     const durationElement = document.querySelector(".duration");
     const playButton = document.getElementById("playBtn");
+
+    // Регулятор громкости
+    const volumeControl = document.getElementById("volumeControl");
+    volumeControl.addEventListener("input", (e) => {
+        audioPlayer.volume = e.target.value;
+    });
 
     // Функция для загрузки песни
     function loadSong(songIndex) {

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Links</title>
+    <!-- Подключаем Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
     <style>
         /* Основные стили */
         body {
@@ -23,10 +26,10 @@
         .container {
             text-align: center;
             max-width: 1200px;
-            padding: 100px;
+            padding: 120px;
             background-color: #282a36;
             border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             position: absolute;
             z-index: 1;
             display: flex;
@@ -35,18 +38,68 @@
             justify-content: center;
         }
 
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+        .avatar-container {
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .avatar-container img {
+            border-radius: 50%;
+            width: 150px; /* Увеличиваем размер аватара */
+            height: 150px; /* Увеличиваем размер аватара */
+            border: 4px solid #ff79c6;
+            box-shadow: 0 0 30px #ff79c6; /* Глоу для аватара */
+            animation: glow-avatar 1.5s infinite alternate;
+        }
+
+        @keyframes glow-avatar {
+            from {
+                box-shadow: 0 0 30px #ff79c6;
+            }
+            to {
+                box-shadow: 0 0 40px #ff79c6;
+            }
+        }
+
+        .github-username {
+            font-size: 2rem; /* Увеличиваем размер текста */
             color: #ff79c6;
-            animation: glow 1.5s infinite alternate;
+            margin-top: 15px;
+            text-shadow: 0 0 15px #ff79c6, 0 0 25px #ff79c6; /* Глоу для никнейма */
+            animation: glow-text 1.5s infinite alternate;
+        }
+
+        @keyframes glow-text {
+            from {
+                text-shadow: 0 0 15px #ff79c6, 0 0 25px #ff79c6;
+            }
+            to {
+                text-shadow: 0 0 25px #ff79c6, 0 0 35px #ff79c6;
+            }
+        }
+
+        .view-counter {
+            margin-top: 10px;
+            font-size: 1.5rem; /* Увеличиваем шрифт счетчика */
+            color: #ff79c6;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 0 15px #ff79c6, 0 0 25px #ff79c6; /* Глоу для счетчика */
+            animation: glow-text 1.5s infinite alternate;
+        }
+
+        .view-counter i {
+            margin-right: 5px;
         }
 
         p {
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            font-size: 1.5rem; /* Увеличиваем размер текста */
             color: #bd93f9;
-            opacity: 0.8;
+            opacity: 0.9;
+            text-shadow: 0 0 15px #bd93f9, 0 0 25px #bd93f9; /* Глоу для текста */
         }
 
         ul {
@@ -56,36 +109,32 @@
         }
 
         li {
-            margin: 15px 0;
+            margin: 20px 0;
         }
 
         a {
             text-decoration: none;
             color: #ffffff;
             background-color: #6272a4;
-            padding: 15px 80px;
-            border-radius: 5px;
+            padding: 20px 100px; /* Увеличиваем отступы для кнопок */
+            border-radius: 8px;
             display: inline-block;
-            transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.2s;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            font-size: 1.4rem; /* Увеличиваем шрифт ссылок */
         }
 
         a:hover {
             background-color: #50fa7b;
-            transform: translateY(-3px);
-            box-shadow: 0 0 20px #50fa7b;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6, 0 0 30px #ff79c6; }
-            to { text-shadow: 0 0 20px #ff79c6, 0 0 30px #ff79c6, 0 0 40px #ff79c6; }
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px #50fa7b;
         }
 
         /* Стили снежинок */
         .snowflake {
             position: absolute;
             top: -33px; /* Начальная позиция снежинки */
-            font-size: 20px;
+            font-size: 20px; /* Оставляем размер снежинок как был */
             color: white;
             animation: fall linear infinite, drift linear infinite;
             z-index: -1;
@@ -102,9 +151,6 @@
 
         @keyframes drift {
             0% {
-                left: ;
-            }
-            0% {
                 left: calc(100vw * var(--x)); /* Случайное отклонение по горизонтали */
             }
         }
@@ -113,7 +159,19 @@
 </head>
 <body>
 <div class="container">
-    <h1>Hi <3</h1>
+    <!-- Блок для аватарки и никнейма с GitHub -->
+    <div class="avatar-container">
+        <img id="github-avatar" src="" alt="GitHub Avatar">
+        <div class="github-username" id="github-username">
+            <span id="github-username-text"></span>
+        </div>
+        <!-- Счетчик просмотров теперь под ником -->
+        <div class="view-counter" title="Total Profile Views">
+            <i class="fas fa-eye" aria-hidden="true"></i>
+            <span id="viewCount" aria-live="polite">0</span>
+        </div>
+    </div>
+
     <p>Click on the links below to explore:</p>
     <ul>
         <li><a href="https://discord.gg/5HCkRJuHcP" target="_blank" rel="noopener noreferrer">Best Discord Server <3</a></li>
@@ -122,9 +180,20 @@
 </div>
 
 <script>
+    // Получаем данные с GitHub с помощью API
+    fetch('https://api.github.com/users/Lun1xes')  // Замените на ваш GitHub никнейм
+        .then(response => response.json())
+        .then(data => {
+            // Устанавливаем аватар и имя пользователя
+            document.getElementById('github-avatar').src = data.avatar_url;
+            document.getElementById('github-username-text').innerText = data.login;
+        })
+        .catch(error => console.error('Ошибка при загрузке данных с GitHub:', error));
+
     const numSnowflakes = 400; // Количество снежинок
     const body = document.body;
 
+    // Генерация снежинок
     for (let i = 0; i < numSnowflakes; i++) {
         const snowflake = document.createElement('div');
         snowflake.className = 'snowflake';
@@ -133,7 +202,7 @@
         // Случайные параметры для каждой снежинки
         const size = Math.random() * 20 + 10; // Размер снежинки от 10 до 30
         const duration = Math.random() * 10 + 10; // Продолжительность падения от 7 до 14 секунд
-        const delay = Math.random() * 5; // Задержка перед началом падения (чтобы снежинки не падали одновременно)
+        const delay = Math.random() * 5; // Задержка перед началом падения
         const xPosition = Math.random() * 5; // Случайное отклонение по горизонтали
 
         // Применяем стили
@@ -145,6 +214,23 @@
         // Добавляем снежинку на страницу
         body.appendChild(snowflake);
     }
+
+    // Функция для обновления счетчика просмотров
+    function updateViewCount() {
+        const viewId = localStorage.getItem('viewId');
+        if (!viewId) {
+            const newViewId = Date.now() + Math.random().toString(36).substring(2);
+            localStorage.setItem('viewId', newViewId);
+
+            const count = localStorage.getItem('viewCount') || 0;
+            const newCount = parseInt(count) + 1;
+            localStorage.setItem('viewCount', newCount);
+        }
+
+        document.getElementById('viewCount').innerText = localStorage.getItem('viewCount') || 0;
+    }
+
+    updateViewCount();
 </script>
 </body>
 </html>

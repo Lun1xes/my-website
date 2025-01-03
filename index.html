@@ -180,6 +180,42 @@
 </div>
 
 <script>
+    // Функция для установки куки
+    function setCookie(name, value, days) {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    }
+
+    // Функция для получения куки
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    // Обновление счётчика просмотров
+    function updateViewCount() {
+        let viewCount = getCookie('viewCount');
+
+        if (!viewCount) {
+            // Если куки нет, значит, это первый просмотр
+            viewCount = 1;
+            setCookie('viewCount', viewCount, 365); // Сохраняем на 365 дней
+        } else {
+            // Если куки есть, увеличиваем счётчик
+            viewCount = parseInt(viewCount) + 1;
+            setCookie('viewCount', viewCount, 365); // Обновляем значение куки
+        }
+
+        document.getElementById('viewCount').innerText = viewCount;
+    }
+
     // Получаем данные с GitHub с помощью API
     fetch('https://api.github.com/users/Lun1xes')  // Замените на ваш GitHub никнейм
         .then(response => response.json())
@@ -190,46 +226,7 @@
         })
         .catch(error => console.error('Ошибка при загрузке данных с GitHub:', error));
 
-    const numSnowflakes = 400; // Количество снежинок
-    const body = document.body;
-
-    // Генерация снежинок
-    for (let i = 0; i < numSnowflakes; i++) {
-        const snowflake = document.createElement('div');
-        snowflake.className = 'snowflake';
-        snowflake.textContent = '❄';
-
-        // Случайные параметры для каждой снежинки
-        const size = Math.random() * 20 + 10; // Размер снежинки от 10 до 30
-        const duration = Math.random() * 10 + 10; // Продолжительность падения от 7 до 14 секунд
-        const delay = Math.random() * 5; // Задержка перед началом падения
-        const xPosition = Math.random() * 5; // Случайное отклонение по горизонтали
-
-        // Применяем стили
-        snowflake.style.fontSize = `${size}px`;
-        snowflake.style.animationDuration = `${duration}s`;
-        snowflake.style.animationDelay = `${delay}s`; // Задержка перед началом анимации
-        snowflake.style.setProperty('--x', xPosition);
-
-        // Добавляем снежинку на страницу
-        body.appendChild(snowflake);
-    }
-
-    // Функция для обновления счетчика просмотров
-    function updateViewCount() {
-        const viewId = localStorage.getItem('viewId');
-        if (!viewId) {
-            const newViewId = Date.now() + Math.random().toString(36).substring(2);
-            localStorage.setItem('viewId', newViewId);
-
-            const count = localStorage.getItem('viewCount') || 0;
-            const newCount = parseInt(count) + 1;
-            localStorage.setItem('viewCount', newCount);
-        }
-
-        document.getElementById('viewCount').innerText = localStorage.getItem('viewCount') || 0;
-    }
-
+    // Обновляем счётчик просмотров
     updateViewCount();
 </script>
 </body>

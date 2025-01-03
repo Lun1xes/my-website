@@ -256,18 +256,20 @@
                 <span class="duration">3:01</span>
             </div>
         </div>
+        <!-- Регулятор громкости -->
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.01" />
     </div>
-    <audio id="audioPlayer" src="spotifydown.com - Revolta.mp3" autoplay></audio>
+    <audio id="audioPlayer" src="song1.mp3"></audio>
 </div>
 
 <script>
     const songs = [
-        { src: "spotifydown.com - CUT OFF.mp3", title: " CUT OFF", artist: "ARXMANE, Nateki" },
+        { src: "spotifydown.com - CUT OFF.mp3", title: "CUT OFF", artist: "ARXMANE, Nateki" },
         { src: "spotifydown.com - Revolta.mp3", title: "Revolta", artist: "ARXMANE" },
         { src: "spotifydown.com - ragephunk!.mp3", title: "ragephunk!", artist: "ARXMANE, DJ LA BEAT" }
     ];
-    
-    let currentSongIndex = 1; // Начинаем с трека "Revolta"
+
+    let currentSongIndex = 0;
     const audioPlayer = document.getElementById("audioPlayer");
     const songTitleElement = document.getElementById("songTitle");
     const songArtistElement = document.getElementById("songArtist");
@@ -275,6 +277,13 @@
     const currentTimeElement = document.querySelector(".current-time");
     const durationElement = document.querySelector(".duration");
     const playButton = document.getElementById("playBtn");
+    const volumeSlider = document.getElementById("volumeSlider");
+
+    // Устанавливаем начальную громкость на 1% (0.01)
+    audioPlayer.volume = 0.01;
+
+    // Слайдер громкости начнется с 1% (0.01)
+    volumeSlider.value = 0.01;
 
     // Функция для загрузки песни
     function loadSong(songIndex) {
@@ -324,6 +333,11 @@
     document.getElementById("prevBtn").addEventListener("click", () => {
         currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
         loadSong(currentSongIndex);
+    });
+
+    // Обработчик изменения громкости
+    volumeSlider.addEventListener("input", () => {
+        audioPlayer.volume = volumeSlider.value;
     });
 
     // Инициализация

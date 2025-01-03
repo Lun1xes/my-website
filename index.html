@@ -129,24 +129,6 @@
             box-shadow: 0 0 25px #50fa7b;
         }
 
-        /* Кнопка очистки данных */
-        #clearButton {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #ff5555;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            box-shadow: 0 0 10px rgba(255, 85, 85, 0.7);
-            transition: background-color 0.3s ease;
-        }
-
-        #clearButton:hover {
-            background-color: #ff0000;
-        }
-
         /* Стили снежинок */
         .snowflake {
             position: absolute;
@@ -192,9 +174,6 @@
         <li><a href="https://discord.gg/5HCkRJuHcP" target="_blank" rel="noopener noreferrer">Best Discord Server <3</a></li>
         <li><a href="https://funpay.com/users/8726003/" target="_blank" rel="noopener noreferrer">My FunPay <3</a></li>
     </ul>
-
-    <!-- Кнопка очистки данных -->
-    <button id="clearButton">Очистить данные</button>
 </div>
 
 <script>
@@ -211,14 +190,6 @@
         
         document.getElementById('viewCount').innerText = localStorage.getItem('viewCount');
     }
-
-    // Очищаем данные по клику на кнопку
-    document.getElementById('clearButton').addEventListener('click', function() {
-        localStorage.removeItem('uniqueVisitorId');
-        localStorage.removeItem('viewCount');
-        document.getElementById('viewCount').innerText = '0';
-        alert('Данные очищены!');
-    });
 
     // Получаем данные с GitHub
     fetch('https://api.github.com/users/Lun1xes')  // Замените на ваш GitHub никнейм

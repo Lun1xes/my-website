@@ -2,632 +2,477 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Links</title>
-  <!-- Подключение шрифта Montserrat -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
-  <!-- Подключение Font Awesome -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lun1xes Links</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <style>
-    /* Общие стили и шрифт */
+    :root {
+      --background-color: #0d0d0d;
+      --text-color: #f5f5f5;
+      --accent-color: #ff4d4d;
+      --accent-hover: #ff1a1a;
+      --shadow-color: rgba(0, 0, 0, 0.9);
+      --container-bg: rgba(20, 20, 20, 0.85);
+    }
+
     body {
-      font-family: 'Montserrat', sans-serif;
       margin: 0;
       padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center; /* Центрирование по горизонтали и вертикали */
+      font-family: 'Montserrat', sans-serif;
+      background: var(--background-color);
+      color: var(--text-color);
+      overflow-x: hidden;
       min-height: 100vh;
-      overflow: hidden;
-      position: relative;
-      animation: backgroundMove 10s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    @keyframes backgroundMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+
+    @media (pointer: fine) {
+      body {
+        cursor: none;
+      }
+      #custom-cursor {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: radial-gradient(circle, rgba(255, 77, 77, 0.8), transparent);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s ease;
+      }
     }
-    body::before {
-      content: '';
-      position: absolute;
+
+    #particles-js {
+      position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
+      width: 100%;
+      height: 100%;
       z-index: -1;
     }
-    /* Темы оформления */
-    body.theme-default {
-      background: linear-gradient(135deg, #1a1a1a, #333);
-      color: #fff;
-    }
-    body.theme-default::before {
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.7);
-    }
-    body.theme-red-black {
-      background: linear-gradient(135deg, #660000, #000000);
-      color: #fff;
-    }
-    body.theme-red-black::before {
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: inset 0 0 40px rgba(102, 0, 0, 0.7);
-    }
-    body.theme-purple-brown {
-      background: linear-gradient(135deg, #4b0082, #8b4513);
-      color: #fff;
-    }
-    body.theme-purple-brown::before {
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: inset 0 0 40px rgba(139, 69, 19, 0.7);
-    }
-    body.theme-blue-green {
-      background: linear-gradient(135deg, #00008b, #006400);
-      color: #fff;
-    }
-    body.theme-blue-green::before {
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: inset 0 0 40px rgba(0, 0, 139, 0.7);
-    }
-    /* Футер */
-    footer {
+
+    #backgroundVideo {
       position: fixed;
-      bottom: 0;
+      top: 0;
+      left: 0;
       width: 100%;
-      text-align: center;
-      padding: 10px 0;
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      font-size: 0.9rem;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      filter: brightness(0.3);
     }
-    /* Основной контейнер */
+
+    #start-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(2em, 10vw, 4em);
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 2;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    #loading-bar {
+      display: none;
+      width: 0;
+      height: 4px;
+      background: var(--accent-color);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      transition: width 0.5s;
+    }
+
     .container {
+      display: none;
+      background: var(--container-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 12px;
+      padding: clamp(15px, 5vw, 30px);
+      max-width: 90%;
+      width: clamp(300px, 80vw, 500px);
+      box-shadow: 0 8px 25px var(--shadow-color);
       text-align: center;
-      padding: 30px 20px;
-      background-color: rgba(34, 34, 34, 0.9);
-      border-radius: 20px;
-      max-width: 1000px;
-      width: 90%;
-      margin: 20px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      animation: fadeIn 0.5s ease forwards;
     }
-    .container:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 6px 40px rgba(0, 0, 0, 0.8);
-    }
-    /* Аватар и данные GitHub */
-    .avatar-container {
-      margin-bottom: 30px;
-      animation: fadeIn 1s ease-in-out;
-    }
-    .avatar-container img {
-      border-radius: 50%;
-      width: 150px;
-      height: 150px;
-      border: 4px solid #ff0000;
-      box-shadow: 0 0 30px #ff0000;
-      animation: glow-avatar 1.5s infinite alternate;
-      transition: transform 0.3s ease;
-    }
-    .avatar-container img:hover {
-      transform: scale(1.1);
-    }
-    @keyframes glow-avatar {
-      from { box-shadow: 0 0 30px #ff0000; }
-      to { box-shadow: 0 0 50px #ff0000; }
-    }
+
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
+
+    .avatar-container {
+      margin-bottom: clamp(15px, 4vw, 25px);
+    }
+
+    #github-avatar {
+      border-radius: 50%;
+      width: clamp(80px, 20vw, 100px);
+      height: clamp(80px, 20vw, 100px);
+      border: 2px solid var(--accent-color);
+      box-shadow: 0 0 15px var(--accent-color);
+      transition: transform 0.5s ease;
+      animation: glow-avatar 1.5s infinite alternate; /* Добавили свечение */
+    }
+
+    #github-avatar:hover {
+      transform: rotate(360deg);
+    }
+
+    @keyframes glow-avatar {
+      from { box-shadow: 0 0 15px var(--accent-color); }
+      to { box-shadow: 0 0 30px var(--accent-color); }
+    }
+
     .github-username {
-      font-size: 1.8rem;
-      color: #ff0000;
-      margin-top: 15px;
-      text-shadow: 0 0 15px #ff0000, 0 0 25px #ff0000;
-      animation: glow-text 1.5s infinite alternate;
+      margin-top: 10px;
+      font-size: clamp(1.2em, 5vw, 1.6em);
+      font-weight: 700;
+      color: var(--accent-color);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color); /* Базовое свечение */
+      animation: glow-text 1.5s infinite alternate; /* Добавили пульсацию */
     }
+
     @keyframes glow-text {
-      from { text-shadow: 0 0 15px #ff0000, 0 0 25px #ff0000; }
-      to { text-shadow: 0 0 25px #ff0000, 0 0 35px #ff0000; }
+      from { text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color); }
+      to { text-shadow: 0 0 20px var(--accent-color), 0 0 30px var(--accent-color); }
     }
+
     ul {
       list-style: none;
       padding: 0;
-      margin: 0 0 30px 0;
-      animation: fadeIn 1.5s ease-in-out;
+      margin: clamp(15px, 4vw, 20px) 0;
     }
+
     li {
-      margin: 20px 0;
+      margin: clamp(8px, 2vw, 12px) 0;
     }
-    a {
-      text-decoration: none;
-      color: #fff;
-      padding: 15px 80px;
-      border-radius: 8px;
-      display: inline-block;
-      transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s ease;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-      font-size: 1.3rem;
-    }
-    /* Стили для контейнера и ссылок в зависимости от темы */
-    body.theme-default .container {
-      background-color: rgba(34, 34, 34, 0.9);
-    }
-    body.theme-default a {
-      background-color: #cc0000;
-    }
-    body.theme-default a:hover {
-      background-color: #ff3333;
-      box-shadow: 0 0 30px rgba(255, 51, 51, 0.5);
-    }
-    body.theme-red-black .container {
-      background-color: rgba(26, 26, 26, 0.9);
-    }
-    body.theme-red-black a {
-      background-color: #cc0000;
-    }
-    body.theme-red-black a:hover {
-      background-color: #ff3333;
-      box-shadow: 0 0 30px rgba(102, 0, 0, 0.5);
-    }
-    body.theme-purple-brown .container {
-      background-color: rgba(47, 47, 47, 0.9);
-    }
-    body.theme-purple-brown a {
-      background-color: #6a0dad;
-    }
-    body.theme-purple-brown a:hover {
-      background-color: #8a2be2;
-      box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
-    }
-    body.theme-blue-green .container {
-      background-color: rgba(26, 26, 26, 0.9);
-    }
-    body.theme-blue-green a {
-      background-color: #0000cd;
-    }
-    body.theme-blue-green a:hover {
-      background-color: #1e90ff;
-      box-shadow: 0 0 30px rgba(30, 144, 255, 0.5);
-    }
-    /* Музыкальный плеер (вернём «большой» размер) */
-    .music-player {
-      margin: 20px auto;
-      border-radius: 15px;
-      max-width: 500px; /* Изменили с 300px на 500px */
-      padding: 15px;
-      background: rgba(26,26,26,0.9);
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .music-player:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
-    }
-    .song-info {
-      margin-bottom: 10px;
-      text-align: center;
-    }
-    .song-title, .song-artist {
-      color: inherit;
-      font-size: 1rem;
-    }
-    .player-controls {
-      margin-bottom: 10px;
-    }
-    .control-btn {
-      background: none;
-      border: none;
-      color: inherit;
-      font-size: 1.5rem;
-      cursor: pointer;
-      padding: 5px;
-      transition: transform 0.3s ease;
-    }
-    .control-btn:hover {
-      transform: scale(1.2);
-    }
-    .progress-bar {
-      background: #444;
-      height: 5px;
-      border-radius: 5px;
-      overflow: hidden;
-    }
-    .progress {
-      height: 100%;
-      background-color: #ff3333;
-      width: 0;
-      transition: width 0.2s;
-    }
-    .time-info {
-      font-size: 0.9rem;
-      margin-top: 5px;
-    }
-    .time-info span {
-      margin: 0 5px;
-    }
-    /* Кастомный слайдер громкости */
-    input[type=range] {
-      -webkit-appearance: none;
-      width: 100%;
-      margin-top: 10px;
-      background: transparent;
-    }
-    input[type=range]:focus {
-      outline: none;
-    }
-    input[type=range]::-webkit-slider-runnable-track {
-      width: 100%;
-      height: 8px;
-      cursor: pointer;
-      background: #555;
-      border-radius: 5px;
-      border: 1px solid #333;
-    }
-    input[type=range]::-webkit-slider-thumb {
-      border: 1px solid #ff3333;
-      height: 20px;
-      width: 20px;
-      border-radius: 50%;
-      background: #ff3333;
-      cursor: pointer;
-      -webkit-appearance: none;
-      margin-top: -6px;
-      transition: background 0.3s;
-    }
-    input[type=range]::-webkit-slider-thumb:hover {
-      background: #ff0000;
-    }
-    /* Кастомный выбор стилей */
-    .style-picker {
-      position: relative;
-      display: inline-block;
-      margin-top: 20px;
-    }
-    .style-picker button {
-      background-color: #222;
-      color: #fff;
-      border: 2px solid #ff3333;
-      border-radius: 5px;
-      padding: 10px 15px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.3s;
-    }
-    .style-picker button:hover {
-      background-color: #333;
-      transform: scale(1.05);
-    }
-    .style-options {
-      position: absolute;
-      top: 110%;
-      left: 0;
-      width: 250px;
-      background-color: #222;
-      border: 2px solid #ff3333;
-      border-radius: 5px;
-      margin-top: 5px;
-      opacity: 0;
-      transform: translateY(-10px);
-      transition: opacity 0.3s, transform 0.3s;
-      pointer-events: none;
-      z-index: 10;
-    }
-    .style-picker.open .style-options {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-    .style-option {
-      display: flex;
+
+    .btn {
+      display: inline-flex;
       align-items: center;
-      padding: 8px 10px;
+      justify-content: center;
+      background: var(--accent-color);
+      color: var(--text-color);
+      padding: clamp(8px, 2vw, 10px) clamp(15px, 3vw, 20px);
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: clamp(0.85em, 3vw, 0.95em);
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+      width: clamp(200px, 80%, 300px);
+      margin: 0 auto;
+      border: none;
       cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .style-option:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    .style-option .preview {
-      width: 40px;
-      height: 40px;
-      border-radius: 5px;
-      margin-right: 10px;
-      flex-shrink: 0;
-    }
-    .style-option span {
-      font-size: 0.9rem;
-      color: #fff;
-    }
-    /* Кастомный выбор песни (плейлист) */
-    .playlist-picker {
       position: relative;
-      display: inline-block;
-      margin-top: 20px;
     }
-    .playlist-picker button {
-      background-color: #222;
-      color: #fff;
-      border: 2px solid #ff3333;
-      border-radius: 5px;
-      padding: 10px 15px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.3s;
+
+    .btn i {
+      margin-right: clamp(5px, 1vw, 8px);
     }
-    .playlist-picker button:hover {
-      background-color: #333;
-      transform: scale(1.05);
+
+    .btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
     }
-    .playlist-options {
+
+    .btn:hover i {
+      animation: bounce 0.5s infinite;
+    }
+
+    .btn:hover::after {
+      content: attr(title);
       position: absolute;
-      top: 110%;
-      left: 0;
-      width: 250px;
-      background-color: #222;
-      border: 2px solid #ff3333;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-color);
+      padding: 5px 10px;
       border-radius: 5px;
-      margin-top: 5px;
-      opacity: 0;
-      transform: translateY(-10px);
-      transition: opacity 0.3s, transform 0.3s;
-      pointer-events: none;
-      z-index: 10;
+      font-size: clamp(0.7em, 2vw, 0.8em);
+      white-space: nowrap;
+      z-index: 4;
     }
-    .playlist-picker.open .playlist-options {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
-    .playlist-option {
-      padding: 8px 10px;
-      cursor: pointer;
-      transition: background-color 0.3s;
+
+    #discord-info {
+      margin-top: clamp(15px, 4vw, 25px);
+      padding: clamp(10px, 3vw, 15px);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
     }
-    .playlist-option:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+
+    #discord-info h2 {
+      margin-bottom: 10px;
+      font-size: clamp(1em, 3vw, 1.1em);
+      font-weight: 600;
+      color: var(--accent-color);
+      animation: pulseColor 2s infinite;
     }
-    .playlist-option.active {
-      background-color: rgba(255, 255, 255, 0.2);
-      font-weight: bold;
+
+    #discord-info p {
+      margin: 8px 0;
+      font-size: clamp(0.85em, 2.5vw, 0.9em);
+    }
+
+    #server-online {
+      animation: pulseColor 2s infinite;
+    }
+
+    @keyframes pulseColor {
+      0% { color: var(--accent-color); }
+      50% { color: #ff8080; }
+      100% { color: var(--accent-color); }
+    }
+
+    #countdown, #visit-counter {
+      font-size: clamp(0.85em, 2.5vw, 0.9em);
+      margin-top: clamp(15px, 4vw, 20px);
+      color: var(--accent-color);
+    }
+
+    footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: clamp(0.65em, 2vw, 0.75em);
+      color: var(--text-color);
+      opacity: 0.7;
+      z-index: 1;
+      padding: 5px 0;
+    }
+
+    @media (min-width: 1200px) {
+      .container {
+        max-width: 600px;
+      }
+      #github-avatar {
+        width: 120px;
+        height: 120px;
+      }
+      .github-username {
+        font-size: 1.8em;
+      }
+      .btn {
+        font-size: 1em;
+        padding: 12px 25px;
+      }
     }
   </style>
 </head>
-<body class="theme-default">
-  <div class="container">
+<body>
+  <div id="particles-js"></div>
+  <video id="backgroundVideo" loop playsinline>
+    <source src="0308.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+  </video>
+  <div id="custom-cursor"></div>
+  <div id="loading-bar"></div>
+  <div id="start-overlay" role="button" aria-label="Начать просмотр" tabindex="0">:3</div>
+
+  <main class="container">
     <div class="avatar-container">
-      <img id="github-avatar" src="" alt="GitHub Avatar">
-      <div class="github-username" id="github-username">
-        <span id="github-username-text"></span>
-      </div>
+      <img id="github-avatar" loading="lazy" src="" alt="GitHub аватар пользователя Lun1xes">
+      <div class="github-username" id="github-username"></div>
     </div>
-
     <ul>
-      <li>
-        <a href="https://discord.gg/Rp4uqRQDa4" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-discord"></i> Best Discord Server <3
-        </a>
-      </li>
-      <li>
-        <a href="https://funpay.com/users/8726003/" target="_blank" rel="noopener noreferrer">
-          <i class="fas fa-shopping-cart"></i> My FunPay <3
-        </a>
-      </li>
+            <li><a href="https://funpay.com/users/8726003/" target="_blank" class="btn" title="Мой профиль на FunPay"><i class="fas fa-shopping-cart"></i> FunPay</a></li>
+      <li><a href="https://www.youtube.com/@w1kslk" target="_blank" class="btn" title="Мой YouTube-канал"><i class="fab fa-youtube"></i> YouTube</a></li>
+      <li><a href="https://steamcommunity.com/profiles/76561199067303674/" target="_blank" class="btn" title="Мой профиль в Steam"><i class="fab fa-steam"></i> Steam</a></li>
+      <li><button id="share-btn" class="btn" title="Скопировать ссылку"><i class="fas fa-share-alt"></i> Поделиться</button></li>
     </ul>
-
-    <!-- Музыкальный плеер (увеличенный) -->
-    <div class="music-player">
-      <div class="song-info">
-        <div class="song-title" id="songTitle">CUT OFF</div>
-        <div class="song-artist" id="songArtist">ARXMANE, Nateki</div>
-      </div>
-      <div class="player-controls">
-        <button class="control-btn" id="playBtn"><i class="fas fa-play"></i></button>
-      </div>
-      <div class="progress-bar">
-        <div class="progress"></div>
-      </div>
-      <div class="time-info">
-        <span class="current-time">0:00</span><span>/</span><span class="duration">3:01</span>
-      </div>
-      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.01" />
+    <div id="discord-info">
+      <h2 id="server-name">Название сервера</h2>
+      <p>Участников онлайн: <span id="server-online">Загрузка...</span></p>
+      <a id="invite-link" href="https://discord.gg/eTKfrxh89h" target="_blank" class="btn" title="Присоединиться к серверу">Присоединиться</a>
     </div>
+    <div id="countdown"></div>
+    <p id="visit-counter">Уникальных посещений: <span id="visit-count">0</span></p>
+  </main>
 
-    <!-- Кастомный выбор стилей -->
-    <div class="style-picker" id="stylePicker">
-      <button id="stylePickerBtn">Выбрать стиль <i class="fas fa-caret-down"></i></button>
-      <div class="style-options">
-        <div class="style-option" data-theme="default">
-          <div class="preview" style="background: linear-gradient(135deg, #1a1a1a, #333);"></div>
-          <span>Стандартный</span>
-        </div>
-        <div class="style-option" data-theme="red-black">
-          <div class="preview" style="background: linear-gradient(135deg, #660000, #000000);"></div>
-          <span>Красно-чёрный</span>
-        </div>
-        <div class="style-option" data-theme="purple-brown">
-          <div class="preview" style="background: linear-gradient(135deg, #4b0082, #8b4513);"></div>
-          <span>Фиолетово-коричневый</span>
-        </div>
-        <div class="style-option" data-theme="blue-green">
-          <div class="preview" style="background: linear-gradient(135deg, #00008b, #006400);"></div>
-          <span>Синий-зелёный</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Кастомный выбор песни (плейлист) -->
-    <div class="playlist-picker" id="playlistPicker">
-      <button id="playlistPickerBtn">Выбрать песню <i class="fas fa-caret-down"></i></button>
-      <div class="playlist-options">
-        <!-- Опции будут сгенерированы через JS -->
-      </div>
-    </div>
-  </div>
   <footer>
-    &copy; 2025 MyLinks. Все права защищены.
+    © 2025 Lun1xes. Все права защищены.
   </footer>
 
-  <audio id="audioPlayer" src="spotifydown.com - CUT OFF.mp3"></audio>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    // Динамическая загрузка данных с GitHub
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: Math.min(50, window.innerWidth / 20) },
+        color: { value: '#ff4d4d' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        move: { speed: 2 }
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: 'repulse' } }
+      }
+    });
+
+    const loadingBar = document.getElementById('loading-bar');
+    loadingBar.style.display = 'block';
+    let progress = 0;
+    const loadInterval = setInterval(() => {
+      progress += 10;
+      loadingBar.style.width = progress + '%';
+      if (progress >= 100) clearInterval(loadInterval);
+    }, 200);
+
     fetch('https://api.github.com/users/Lun1xes')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById("github-avatar").src = data.avatar_url;
-        document.getElementById("github-username-text").textContent = data.login;
+      .then(response => {
+        if (!response.ok) throw new Error('Ошибка API GitHub');
+        return response.json();
       })
-      .catch(error => console.error('Ошибка при загрузке данных пользователя:', error));
+      .then(data => {
+        document.getElementById('github-avatar').src = data.avatar_url || 'default-avatar.png';
+        clearInterval(loadInterval);
+        loadingBar.style.width = '100%';
+        setTimeout(() => loadingBar.style.display = 'none', 500);
+      })
+      .catch(error => {
+        console.error('Ошибка загрузки данных GitHub:', error);
+        document.getElementById('github-avatar').src = 'default-avatar.png';
+        document.getElementById('github-username').textContent = 'Ошибка';
+        clearInterval(loadInterval);
+        loadingBar.style.width = '100%';
+        setTimeout(() => loadingBar.style.display = 'none', 500);
+      });
 
-    // Массив песен
-    const songs = [
-      { src: "spotifydown.com - CUT OFF.mp3", title: "CUT OFF", artist: "ARXMANE, Nateki" },
-      { src: "spotifydown.com - Revolta.mp3", title: "Revolta", artist: "ARXMANE" },
-      { src: "spotifydown.com - ragephunk!.mp3", title: "ragephunk!", artist: "ARXMANE, DJ LA BEAT" }
-    ];
+    const SERVER_ID = '1044632380549378170';
+    fetch(`https://discord.com/api/guilds/${SERVER_ID}/widget.json`)
+      .then(response => {
+        if (!response.ok) throw new Error('Ошибка API Discord');
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('server-name').textContent = data.name || 'Сервер Discord';
+        document.getElementById('server-online').textContent = data.presence_count || 'N/A';
+        document.getElementById('invite-link').href = 'https://discord.gg/eTKfrxh89h';
+      })
+      .catch(err => {
+        console.error('Ошибка при получении данных Discord:', err);
+        document.getElementById('server-online').textContent = 'Недоступно';
+      });
 
-    let currentSongIndex = 0;
-    const audioPlayer = document.getElementById("audioPlayer");
-    const songTitleElement = document.getElementById("songTitle");
-    const songArtistElement = document.getElementById("songArtist");
-    const progressBar = document.querySelector(".progress");
-    const currentTimeElement = document.querySelector(".current-time");
-    const durationElement = document.querySelector(".duration");
-    const playButton = document.getElementById("playBtn");
-    const volumeSlider = document.getElementById("volumeSlider");
+    const video = document.getElementById('backgroundVideo');
+    const overlay = document.getElementById('start-overlay');
+    const container = document.querySelector('.container');
 
-    // Устанавливаем начальную громкость
-    audioPlayer.volume = 0.01;
+    const startExperience = () => {
+      overlay.style.opacity = 0;
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        container.style.display = 'block';
+        setTimeout(() => container.style.opacity = 1, 25);
+      }, 350);
 
-    function loadSong(index) {
-      const song = songs[index];
-      audioPlayer.src = song.src;
-      songTitleElement.textContent = song.title;
-      songArtistElement.textContent = song.artist;
-      audioPlayer.load();
-      audioPlayer.play();
-      playButton.innerHTML = '<i class="fas fa-pause"></i>';
-      updateProgressBar();
-      updatePlaylistPicker();
-    }
-
-    function updateProgressBar() {
-      const duration = audioPlayer.duration;
-      const currentTime = audioPlayer.currentTime;
-      if (duration) {
-        const progressPercentage = (currentTime / duration) * 100;
-        progressBar.style.width = progressPercentage + "%";
-        const minutes = Math.floor(currentTime / 60);
-        const seconds = Math.floor(currentTime % 60);
-        currentTimeElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-        const durationMinutes = Math.floor(duration / 60);
-        const durationSeconds = Math.floor(duration % 60);
-        durationElement.textContent = `${durationMinutes}:${durationSeconds < 10 ? '0' + durationSeconds : durationSeconds}`;
-      }
-    }
-
-    playButton.addEventListener("click", () => {
-      if (audioPlayer.paused) {
-        audioPlayer.play();
-        playButton.innerHTML = '<i class="fas fa-pause"></i>';
+      video.volume = 0.06;
+      video.muted = false;
+      if (video.readyState >= 2) {
+        video.play().catch(err => console.error('Ошибка воспроизведения видео:', err));
       } else {
-        audioPlayer.pause();
-        playButton.innerHTML = '<i class="fas fa-play"></i>';
+        video.addEventListener('canplay', () => video.play(), { once: true });
       }
-    });
 
-    volumeSlider.addEventListener("input", () => {
-      audioPlayer.volume = volumeSlider.value;
-    });
+      typeWriter();
+      overlay.removeEventListener('click', startExperience);
+      overlay.removeEventListener('keydown', handleKeydown);
+    };
 
-    audioPlayer.addEventListener("timeupdate", updateProgressBar);
+    const handleKeydown = (e) => {
+      if (e.key === 'Enter') startExperience();
+    };
 
-    // Переключатель стилей
-    let currentTheme = 'default';
-    function applyTheme(theme) {
-      document.body.classList.remove("theme-default", "theme-red-black", "theme-purple-brown", "theme-blue-green");
-      switch(theme) {
-        case "default":
-          document.body.classList.add("theme-default");
-          break;
-        case "red-black":
-          document.body.classList.add("theme-red-black");
-          break;
-        case "purple-brown":
-          document.body.classList.add("theme-purple-brown");
-          break;
-        case "blue-green":
-          document.body.classList.add("theme-blue-green");
-          break;
+    overlay.addEventListener('click', startExperience);
+    overlay.addEventListener('keydown', handleKeydown);
+
+    const usernameElement = document.getElementById('github-username');
+    const username = 'Lun1xes';
+    usernameElement.textContent = '';
+    let i = 0;
+    function typeWriter() {
+      if (i < username.length) {
+        usernameElement.textContent += username.charAt(i);
+        i++;
+        setTimeout(typeWriter, 150);
       }
     }
-    const styleOptions = document.querySelectorAll('.style-option');
-    styleOptions.forEach(option => {
-      option.addEventListener('mouseenter', function() {
-        const theme = this.getAttribute('data-theme');
-        applyTheme(theme);
-      });
-      option.addEventListener('mouseleave', function() {
-        applyTheme(currentTheme);
-      });
-      option.addEventListener('click', function() {
-        currentTheme = this.getAttribute('data-theme');
-        applyTheme(currentTheme);
-        stylePicker.classList.remove('open');
-      });
-    });
-    const stylePicker = document.getElementById('stylePicker');
-    const stylePickerBtn = document.getElementById('stylePickerBtn');
-    stylePickerBtn.addEventListener('click', function(e) {
-      stylePicker.classList.toggle('open');
-      e.stopPropagation();
-    });
-    document.addEventListener('click', function(e) {
-      if (!stylePicker.contains(e.target)) {
-        stylePicker.classList.remove('open');
-      }
-    });
 
-    // Кастомный выбор песни (плейлист)
-    const playlistPicker = document.getElementById('playlistPicker');
-    const playlistPickerBtn = document.getElementById('playlistPickerBtn');
-    const playlistOptionsContainer = document.querySelector('.playlist-options');
+    const countdownDate = new Date('2025-11-01').getTime();
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      document.getElementById('countdown').textContent = `До ДР: ${days} дн. ${hours} ч. ${minutes} мин.`;
+    };
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
 
-    function updatePlaylistPicker() {
-      playlistOptionsContainer.innerHTML = '';
-      songs.forEach((song, index) => {
-        const div = document.createElement('div');
-        div.classList.add('playlist-option');
-        if (index === currentSongIndex) {
-          div.classList.add('active');
-        }
-        div.setAttribute('data-index', index);
-        div.textContent = `${song.title} - ${song.artist}`;
-        div.addEventListener('click', function(e) {
-          currentSongIndex = parseInt(this.getAttribute('data-index'));
-          loadSong(currentSongIndex);
-          playlistPicker.classList.remove('open');
-          e.stopPropagation();
-        });
-        playlistOptionsContainer.appendChild(div);
+    const cursor = document.getElementById('custom-cursor');
+    if (window.matchMedia('(pointer: fine)').matches) {
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.pageX + 'px';
+        cursor.style.top = e.pageY + 'px';
       });
-      playlistPickerBtn.innerHTML = `Песня: ${songs[currentSongIndex].title} <i class="fas fa-caret-down"></i>`;
+    } else {
+      cursor.style.display = 'none';
     }
 
-    playlistPickerBtn.addEventListener('click', function(e) {
-      playlistPicker.classList.toggle('open');
-      e.stopPropagation();
-    });
-    document.addEventListener('click', function(e) {
-      if (!playlistPicker.contains(e.target)) {
-        playlistPicker.classList.remove('open');
-      }
+    const visitCountElement = document.getElementById('visit-count');
+    const baseVisits = 100;
+    let uniqueVisits = localStorage.getItem('uniqueVisits') || 0;
+    const hasVisited = localStorage.getItem('hasVisited');
+
+    if (!hasVisited) {
+      uniqueVisits++;
+      localStorage.setItem('uniqueVisits', uniqueVisits);
+      localStorage.setItem('hasVisited', 'true');
+    }
+
+    const totalVisits = baseVisits + parseInt(uniqueVisits);
+    visitCountElement.textContent = totalVisits;
+
+    document.getElementById('share-btn').addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Ссылка скопирована в буфер обмена!');
     });
 
-    // Инициализация
-    loadSong(currentSongIndex);
+    let avatarClicks = 0;
+    document.getElementById('github-avatar').addEventListener('click', () => {
+      avatarClicks++;
+      if (avatarClicks === 3) {
+        alert('Секрет найден! Ты крут!');
+        avatarClicks = 0;
+      }
+    });
   </script>
 </body>
 </html>
